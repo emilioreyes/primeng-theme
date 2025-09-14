@@ -1,0 +1,45 @@
+.hamburguer {
+  position: relative;
+  width: 25px;
+  height: 22px; // altura del contenedor para 3 líneas con espacio
+
+  .line {
+    position: absolute;
+    height: 2.5px;
+    transition: transform 0.3s;
+    transform-origin: center;
+  }
+
+  // Posiciones iniciales
+  .line1 {
+    width: 50%;
+    top: 20%;
+    right: 0;
+  }
+
+  .line2{
+    width: 100%;
+    top: 50%;
+    transform:  translateY(-50%);
+  }
+  .line3 {
+    transition: width 0.1s;
+    width: 50%;
+    bottom: 20%;
+  }
+
+  // Efecto al desplegar el menú
+  .active1 {
+    transform : translateX(150%);
+  }
+
+   .active2     {
+     transform: translateY(-50%) rotate(135deg);
+  }
+
+  .active3 {
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%) rotate(-135deg);
+  }
+}

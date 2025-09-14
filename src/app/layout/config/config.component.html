@@ -1,0 +1,50 @@
+<div class="border-round-left w-full right-0 surface-0 pt-3 pb-3 pl-4 pr-4 transition-ease-in transition-duration-200"
+    [ngClass]="[layoutStore.sidebarConfigCollapsed() ? 'translate-x-100' : 'translate-x-0' ]">
+    <div class="flex flex-column">
+        <label class="text-lg pb-2">Primary</label>
+        <div>
+            <ul class="card flex flex-wrap gap-1 justify-content-start">
+                @for (item of themeStore.colorShades(); track $index) {
+                <li>
+                    <div (click)="themeStore.changePrimaryColor(item.shades)" [ngClass]="'bg-' + item.color + '-500' "
+                        class="border-circle w-[24px] h-[24px] cursor-pointer shadow-2"></div>
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+     <div class="flex flex-column pt-3">
+        <label class="text-lg pb-2">Color Schema</label>
+        <p-selectbutton styleClass="" (onOptionClick)="themeStore.changeDarkTheme()" [options]="themeStore.stateOptions()"
+            [(ngModel)]="themeStore.useDarkTheme" optionLabel="label" optionValue="key" aria-labelledby="basic" [allowEmpty]="false" />
+    </div>
+    <div class="flex flex-col pt-3">
+         <label class="pb-2">Menu Type</label>
+         <div class="flex flex-wrap gap-4">
+            <div class="card flex justify-center">
+                <div class="flex flex-col">
+                    <div *ngFor="let tipo of themeStore.menuType()" class="field-checkbox">
+                        <p-radiobutton [inputId]="tipo.label" name="tipo"
+                            [value]="tipo.key" 
+                            [(ngModel)]="layoutStore.sidebarCollapsed"/>
+                        <label [for]="tipo.key" class="ml-2">{{ tipo.label }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-column pt-3">
+        <label for="thema" class="pb-2">Layout Theme</label>
+        <div class="flex flex-wrap gap-4">
+            <div class="card flex justify-center">
+                <div class="flex flex-col">
+                    <div *ngFor="let theme of themeStore.themes()" class="field-checkbox">
+                        <p-radiobutton  [inputId]="theme.label" name="theme"
+                            [value]="theme.key" [(ngModel)]="themeStore.userPrimaryColor" />
+                        <label [for]="theme.key" class="ml-2">{{ theme.label }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<nav class="custom-menu relative pt-2 pb-3">
+    <ul class="list-none m-0 p-0">
+        @for (item of themeStore.menuItems(); track $index) {
+        <li class="relative mt-2 mb-2" #menuItem [ngClass]="{'flex justify-content-center align-items-center':layoutStore.sidebarCollapsed()}" >
+            <a class="" [routerLink]="item.routerLink" (click)="showSubmenu(menuItem)">
+                <span><i class="{{item.icon}} transition-ease-in transition-duration-200" 
+                [ngClass]="{'text-4xl':layoutStore.sidebarCollapsed(),
+                    'text-2xl':layoutStore.sidebarCollapsed()
+                    }"></i></span>
+                <span [ngClass]="{'hidden':layoutStore.sidebarCollapsed()}">{{item.label}}</span>
+            </a>
+            @if (item.menuItems) {
+                <ng-container>
+                    <ul class="" [ngClass]="{'absolute hidden top-0 left-100 surface-0  border-round-xl shadow-6':layoutStore.sidebarCollapsed()}" #submenuItem>
+                        @for (submenu of item.menuItems; track $index) {
+                        <li class="py-1 px-3" (click)="hideSubmenu(submenuItem)">
+                            <a [ngClass]="{'flex align-items-center gap-3':layoutStore.sidebarCollapsed()}" [routerLink]="submenu.routerLink">
+                                <span><i class="{{submenu.icon}}"></i></span>
+                                <span>{{submenu.label}}</span>
+                            </a>
+                            
+                        </li>
+                        }
+                       
+                    </ul>
+                </ng-container>
+            }
+
+        </li>
+        }
+    </ul>
+</nav>
