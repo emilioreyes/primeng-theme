@@ -1,0 +1,47 @@
+<nav class="custom-menu relative pt-2 pb-3"
+[ngClass]="{
+  'text-0 bg-primary-500': themeStore.userPrimaryColor(),
+  'text-primary': !themeStore.userPrimaryColor(),
+  'border-round-right-xl': layoutStore.isMobile(),
+  'bg-primary-reverse': layoutStore.isMobile()
+}"
+ >
+    <ul class="list-none p-0" [ngClass]="
+        layoutStore.sidebarCollapsed() && !layoutStore.isMobile()? 'ml-0': 'ml-3'
+    ">
+        @for (item of themeStore.menuItems(); track $index) {
+        <li class="relative mt-2 mb-2" #menuItem [ngClass]="{'flex justify-content-center align-items-center':layoutStore.sidebarCollapsed()}" >
+            <a class="" [routerLink]="item.routerLink" (click)="showSubmenu(menuItem)">
+                <span>
+                    <i class="{{item.icon}} transition-ease-in transition-duration-200" 
+                [ngClass]="{
+                    'text-4xl':layoutStore.sidebarCollapsed(),
+                    'border-circle p-1 hover:shadow-5 hover:surface-hover hover:text-primary overflow-hidden':layoutStore.sidebarCollapsed() && !layoutStore.isMobile()
+                    }"></i></span>
+                <span class="pl-1" [ngClass]="{'hidden':layoutStore.sidebarCollapsed()}">{{item.label}}</span>
+            </a>
+            @if (item.menuItems) {
+                <ng-container>
+                    <ul class="overflow-hidden" #submenuItem
+                    [ngClass]="{
+                        'bg-primary-reverse':themeStore.userPrimaryColor() && layoutStore.sidebarCollapsed(),
+                        'absolute hidden top-0 left-100 surface-0  border-round-xl shadow-6':layoutStore.sidebarCollapsed()
+                    }">
+                        @for (submenu of item.menuItems; track $index) {
+                        <li class="py-1 px-3 hover:bg-black-alpha-30 cursor-pointer" (click)="hideSubmenu(submenuItem)">
+                            <a [ngClass]="{'flex align-items-center gap-3':layoutStore.sidebarCollapsed()}" [routerLink]="submenu.routerLink">
+                                <span><i class="{{submenu.icon}}"></i></span>
+                                <span class="pl-1">{{submenu.label}}</span>
+                            </a>
+                            
+                        </li>
+                        }
+                       
+                    </ul>
+                </ng-container>
+            }
+
+        </li>
+        }
+    </ul>
+</nav>

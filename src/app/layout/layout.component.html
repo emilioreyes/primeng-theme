@@ -1,0 +1,72 @@
+<div class="layout-wrapper" [class.bg-primary-500]="themeStore.userPrimaryColor()"
+  [class.mobile]="layoutStore.isMobile()" [class.sidebar-collapsed]="layoutStore.sidebarCollapsed()">
+  <!-- Header -->
+  <header class="layout-header">
+    <div class="flex align-items-center justify-content-between px-3 py-0 h-full">
+      @if (layoutStore.isMobile()) {
+        <app-burguer-menu />
+      }
+
+      <div>
+        <h2 class="m-0 font-semibold sm:text-sm lg:text-lg"
+          [ngClass]="themeStore.userPrimaryColor()?'text-0':'text-primary'">Primeng theme</h2>
+      </div>
+
+      <div class="flex gap-1 lg:gap-2">
+        <button pButton type="button">
+          <i class="pi pi-user" [ngClass]="themeStore.userPrimaryColor()?'text-0':'text-primary'" pButtonIcon></i>
+        </button>
+        <button pButton type="button" (click)="toggleConfigSidebar()">
+          <i class="pi pi-cog" [ngClass]="themeStore.userPrimaryColor()?'text-0':'text-primary'" pButtonIcon></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="layout-sidebar z-3 transition-ease-in transition-duration-200"
+  [ngClass]="{'fixed top-[60px] left-0 w-[280px]':layoutStore.isMobile(), 
+  'translate-x-0': layoutStore.isMobile() && !layoutStore.sidebarCollapsed(),
+  '-translate-x-100':layoutStore.isMobile() && layoutStore.sidebarCollapsed()
+  }">
+    <div class="sidebar-content  pt-2 pb-6 px-0 h-screen" [ngClass]="{'overflow-y-auto':layoutStore.subMenuCollapsed()}" >
+      <app-menu class=""/>
+    </div>
+  </aside>
+
+  <!-- Overlay para móvil -->
+  <div class="sidebar-overlay transition-ease-in transition-duration-200" [ngClass]="{'fixed top-[60px] left-0 w-full h-[calc(100vh-60px)] bg-black-alpha-50':layoutStore.isMobile(),
+  'opacity-0 hidden z-0 pointer-events-none': layoutStore.sidebarCollapsed() && layoutStore.isMobile(),
+  'z-2 opacity-100 block ':!layoutStore.sidebarCollapsed() && layoutStore.isMobile()}">
+  </div>
+
+  <!--Configuracion-->
+  <aside
+    class="layout-config z-4 transition-ease-in transition-duration-200 fixed top-[60px] right-0 h-[calc(100vh-60px)] w-[280px]"
+    [ngClass]="[layoutStore.sidebarConfigCollapsed() ? 'translate-x-100':'translate-x-0' ]">
+    <div class="config-content h-screen pt-3 pb-6 px-0 overflow-y-scroll">
+      <app-config class="" />
+    </div>
+  </aside>
+
+  <!--Overlay para configuracion-->
+  <div
+    class="fixed right-0 top-[60px] w-full h-[calc(100vh-60px)] bg-black-alpha-50 transition-ease-in transition-duration-200"
+    [ngClass]="layoutStore.sidebarConfigCollapsed() ? 'z-0 opacity-0 hidden pointer-events-none': 'opacity-100 block z-3'"
+    (click)="toggleConfigSidebar()">
+  </div>
+
+  <!-- Main Content -->
+  <main class="layout-content surface-ground shadow-6 border-round-top-3xl">
+    <div class="content-wrapper px-3 pt-3 pb-8 mx-0 my-0 lg:pb-8">
+      <div class="overflow-y-scroll h-screen">
+        <!-- <router-outlet></router-outlet> -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer-->
+  <footer class="layout-footer z-1 surface-100 px-0 py-3 surface-border">
+    <!-- <app-footer></app-footer> -->
+  </footer>
+</div>

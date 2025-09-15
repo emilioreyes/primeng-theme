@@ -1,0 +1,9 @@
+<button pButton type="button" (click)="toggleBurguerMenu()"
+    class="menu-toggle-btn button-one p-1 flex justify-center items-center border-0 border-round-md cursor-pointer overflow-hidden"
+     aria-controls="" aria-expanded="false">
+    <div class="hamburguer">
+        <div class="line line1 border-round-sm bg-primary-500" [class.active1]="!layoutStore.sidebarCollapsed()" [class.bg-white]="themeStore.userPrimaryColor() && !themeStore.useDarkTheme()" [class.bg-black-alpha-90]="themeStore.userPrimaryColor() && themeStore.useDarkTheme()"></div>
+        <div class="line line2 border-round-sm bg-primary-500" [class.active2]="!layoutStore.sidebarCollapsed()" [class.bg-white]="themeStore.userPrimaryColor() && !themeStore.useDarkTheme()" [class.bg-black-alpha-90]="themeStore.userPrimaryColor() && themeStore.useDarkTheme()"></div>
+        <div class="line line3 border-round-sm bg-primary-500" [class.active3]="!layoutStore.sidebarCollapsed()" [class.bg-white]="themeStore.userPrimaryColor() && !themeStore.useDarkTheme()" [class.bg-black-alpha-90]="themeStore.userPrimaryColor() && themeStore.useDarkTheme()"></div>
+    </div>
+</button>
